@@ -1,13 +1,18 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom';
 import './App.scss';
 
 const App: React.FC = () => {
   return (
-    <div className="main">
-      <p>
-        Hi there
-      </p>
-    </div>
+    <Router>
+      <div className="main">
+        <p>
+          Hi there
+        </p>
+      </div>
+    </Router>
   );
 }
 
