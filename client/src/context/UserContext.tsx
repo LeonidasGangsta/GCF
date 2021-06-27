@@ -26,6 +26,8 @@ export const UserContextProvider: React.FC = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
+    if(!userData.id) return;
+    
     getUserData(userData.id)
       .then((data) => {
         const { id, firstname, lastname } = data;

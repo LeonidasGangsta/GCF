@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react';
+import { getUserEnrolments } from '../../api/users';
 import { useUserContext } from '../../context/UserContext';
 import './Home.scss';
 
 const Home: React.FC = () => {
-  const userData = useUserContext()
+  const userData = useUserContext();
+
+  const {
+    firstName,
+    lastName,
+    id,
+  } = userData.user;
 
   useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+    getUserEnrolments(id).then(console.log);
+  }, [id]);
 
   return (
     <div>
-      This is the home
+      <span>
+        {`Hi ${firstName} ${lastName}, this is the home page.`}
+      </span>
     </div>
   );
 };

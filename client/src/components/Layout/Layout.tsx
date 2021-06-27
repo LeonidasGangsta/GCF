@@ -7,14 +7,13 @@ import { useUserContext } from '../../context/UserContext';
 
 const Layout: React.FC = ({ children }) => {
   const history = useHistory();
-  const userData = useUserContext();
+  const { isLoggedIn } = useUserContext();
 
   useEffect(() => {
-    if (!userData.isLoggedIn) {
+    if (!isLoggedIn) {
       history.replace('/login')
     }
-    console.log(userData);
-  }, [userData, history]);
+  }, [isLoggedIn, history]);
 
   return (
     <div className="global-layout">

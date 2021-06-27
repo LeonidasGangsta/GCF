@@ -6,9 +6,23 @@ export const getUserData = async (userID: number) => {
       params: {
         userID,
       },
-    })
+    });
     
     return userData;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserEnrolments = async (userID: number) => {
+  try {
+    const { data } = await apiHelper().get('/enrolments', {
+      params: {
+        userID,
+      },
+    });
+
+    return data;
   } catch (error) {
     throw error;
   }

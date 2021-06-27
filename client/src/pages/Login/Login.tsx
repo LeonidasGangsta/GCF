@@ -39,12 +39,10 @@ const Login: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(isLoggedIn)
     if (isLoggedIn) {
       history.push('/');
-      console.log('object')
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   return (
     <div className="login-page">
@@ -73,8 +71,11 @@ const Login: React.FC = () => {
         </button>
       </form>
       <div className="login-page__extra-info">
-        <span className="login-page__extra-info__title">
-          This is a test
+        <h2 className="login-page__extra-info__title">
+          Please log in
+        </h2>
+        <span className="login-page__extra-info__description">
+          Log in on our website in order to check all our courses and learn from the hand of experts by $0 on <strong>DEMAND</strong>.
         </span>
       </div>
     </div>
