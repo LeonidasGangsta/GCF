@@ -2,6 +2,7 @@ import express from 'express';
 import { SERVER_PORT } from './constants/constants';
 import { coursesDataJson, pagesDataJson } from '../data/data';
 import { getUserCourses, getUserData } from './Utils/DataUtils';
+import { userMatch } from './Utils/AuthUtils';
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*')
   next();
 })
 
@@ -46,6 +48,19 @@ app.get('/pages', (req, res) => {
 
 app.get('/courses', (req, res) => {
   res.json(coursesDataJson);
+})
+
+app.post("/auth", (req, res)=>{
+  const {username, password} = req.body.data;
+  if(!username || !password){
+    res.status(400).send("Username or password not sent")
+  }
+  const user = userMatch(username,password);
+  if(!user){
+    res.status(400).send("User not found")
+  }
+  const userInfo = getUserData(user.id)
+  return res.json(userInfo)
 })
 
 app.listen(SERVER_PORT, () => {

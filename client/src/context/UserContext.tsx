@@ -10,9 +10,7 @@ export type UserDataType = {
 export type UserDataContextType = {
   isLoggedIn: boolean,
   updateUserData: (data: UserDataType) => void,
-  id: number,
-  firstName: string,
-  lastName: string,
+  user: UserDataType,
 };
 
 export const InitialUserData: UserDataType = {
@@ -21,9 +19,11 @@ export const InitialUserData: UserDataType = {
   lastName: '',
 }
 
-export const UserContext = () => {
+export const UserContext = createContext<UserDataContextType>({ user: InitialUserData, isLoggedIn: false, updateUserData: () => {}});
+
+export const UserContextProvider: React.FC = ({ children }) => {
   const [userData, setUserData] = useState<UserDataType>(InitialUserData);
-  const UserRawContext = createContext<UserDataContextType>({ ...InitialUserData, isLoggedIn: false, updateUserData: () => {} });
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
     getUserData(userData.id)
@@ -34,26 +34,23 @@ export const UserContext = () => {
           id,
           firstName: firstname,
           lastName: lastname,
-        })
+        });
+        setIsLoggedIn(true);
       })
       .catch(() => {
         console.warn('An error ocurred getting the user data.')
       });
   }, [userData.id])
 
-  const Provider: React.FC = ({ children }) => {
-    const value: UserDataContextType = {
-      ...userData,
-      isLoggedIn: false,
-      updateUserData: (newData) => setUserData(newData),
-    };
+  const value: UserDataContextType = {
+    user: userData,
+    isLoggedIn,
+    updateUserData: (newData) => {
+      setUserData(newData)
+    },
+  };
 
-    return <UserRawContext.Provider value={value}>{children}</UserRawContext.Provider>
-  }
-
-  return {
-    userData: useContext(UserRawContext),
-    UserDataProvider: Provider,
-    UserDataConsumer: UserRawContext.Consumer,
-  }
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 };
+
+export const useUserContext = () => useContext(UserContext)

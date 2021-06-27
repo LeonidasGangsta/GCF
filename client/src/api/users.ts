@@ -13,3 +13,18 @@ export const getUserData = async (userID: number) => {
     throw error;
   }
 };
+
+export const authUser = async (username: string, password:String) => {
+  try {
+    const { data: userData } = await apiHelper().post('/auth', {
+      data: {
+        username,
+        password,
+      },
+    })
+    
+    return userData;
+  } catch (error) {
+    throw error;
+  }
+};

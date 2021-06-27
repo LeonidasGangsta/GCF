@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { UserContext } from '../../context/UserContext';
 import './Layout.scss';
+import { useUserContext } from '../../context/UserContext';
 
 const Layout: React.FC = ({ children }) => {
   const history = useHistory();
-  const { userData } = UserContext();
+  const userData = useUserContext();
 
   useEffect(() => {
     if (!userData.isLoggedIn) {
