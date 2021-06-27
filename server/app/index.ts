@@ -1,26 +1,41 @@
 import express from 'express';
 import { SERVER_PORT } from './constants/constants';
-import { getUserCourses } from './Utils/DataUtils';
+import { coursesDataJson, pagesDataJson } from '../data/data';
+import { getUserCourses, getUserData } from './Utils/DataUtils';
 
 const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+})
 
 
-app.get('/users', (req, res) => {
- res.json(userDataJson);
+app.get('/user', (req, res) => {
+  const { userID }: { userID?: string } = req.query;
+  if (userID) {
+    const userIDParsed = typeof userID === 'number' ? userID : Number(userID);
+    const userFound = getUserData(userIDParsed);
+
+    return res.json(userFound);
+  }
+
+  return res.status(400).send('A user ID is needed to get the user information.')
 });
 
 app.get('/enrolments', (req, res) => {
-  const { userID }: { userID?: number } = req.body;
+  const { userID }: { userID?: string } = req.query;
 
   if (userID) {
-    const coursesEnrolledToTheUser = getUserCourses(userID);
+    const userIDParsed = typeof userID === 'number' ? userID : Number(userID);
+    const coursesEnrolledToTheUser = getUserCourses(userIDParsed);
   
-    res.json(coursesEnrolledToTheUser);
+    return res.json(coursesEnrolledToTheUser);
   }
-  res.status(400).send('A user ID is needed to get the courses enrolled to the user.')
+
+  return res.status(400).send('A user ID is needed to get the courses enrolled to the user.')
 })
 
 app.get('/pages', (req, res) => {

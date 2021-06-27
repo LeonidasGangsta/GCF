@@ -1,4 +1,11 @@
-import { coursesDataJson, enrolmentsDataJson } from "../data/data";
+import { coursesDataJson, enrolmentsDataJson, userDataJson } from "../../data/data";
+
+export const getUserData = (userID: number) => {
+  const { users } = userDataJson;
+  const userFound = users.find(({ id }) => userID === id);
+
+  return userFound || null;
+};
 
 export const getCourseData = (courseID: string) => {
   const { courses } = coursesDataJson;
