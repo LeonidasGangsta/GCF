@@ -14,15 +14,17 @@ app.use((req, res, next) => {
 
 
 app.get('/user', (req, res) => {
+  const errorToThrow = () => res.status(400).send('A user ID is needed to get the user information.');
   const { userID }: { userID?: string } = req.query;
+
   if (userID) {
     const userIDParsed = typeof userID === 'number' ? userID : Number(userID);
     const userFound = getUserData(userIDParsed);
 
-    return res.json(userFound);
+    return userFound ? res.json(userFound) : errorToThrow();
   }
 
-  return res.status(400).send('A user ID is needed to get the user information.')
+  return errorToThrow();
 });
 
 app.get('/enrolments', (req, res) => {
