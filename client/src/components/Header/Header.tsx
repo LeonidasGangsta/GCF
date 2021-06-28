@@ -3,7 +3,13 @@ import './Header.scss';
 
 const Header: React.FC = () => {
   return (
-    <div>
+    <div className="header">
+      <div className="header__logo">
+        
+      </div>
+      <div className="header__buttons">
+
+      </div>
     </div>
   );
 };

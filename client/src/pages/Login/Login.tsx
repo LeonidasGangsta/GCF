@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { authUser } from '../../api/users';
@@ -19,12 +19,14 @@ type LoginResponseType = {
 const Login: React.FC = () => {
   const history = useHistory();
   const { updateUserData, isLoggedIn } = useUserContext();
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     reValidateMode: 'onChange',
     shouldFocusError: true,
   })
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const onSubmit: SubmitHandler<FormData> = ({ username, password }) => {
+    setIsLoading(true);
     authUser(username, password)
       .then(({ firstname, lastname, id }: LoginResponseType) => {
         updateUserData({
@@ -35,6 +37,9 @@ const Login: React.FC = () => {
       })
       .catch((error) => {
         console.error(error)
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -55,18 +60,38 @@ const Login: React.FC = () => {
             Log in on the GCF page to see all our courses
           </span>
         </div>
-        <hr className="login-page__separator"/>
+        <hr className="login-page__separator" />
         <input
           className="login-page__login__input"
           type="text"
-          {...register('username')}
+          placeholder="username"
+          {...register('username', {
+            required: 'Please insert an username'
+          })}
         />
+        {errors.username && (
+          <span className="login-page__login__error">
+            {errors.username.message}
+          </span>
+        )}
         <input
           className="login-page__login__input"
           type="password"
-          {...register('password')}
+          placeholder="password"
+          {...register('password', {
+            required: 'Please type in a valid password'
+          })}
         />
-        <button type="submit" className="login-page__login__submit">
+        {errors.password && (
+          <span className="login-page__login__error">
+            {errors.password.message}
+          </span>
+        )}
+        <button
+          type="submit"
+          className="login-page__login__submit"
+          disabled={isLoading}
+        >
           Log in
         </button>
       </form>
