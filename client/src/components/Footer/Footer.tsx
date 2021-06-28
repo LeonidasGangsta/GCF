@@ -3,9 +3,9 @@ import './Footer.scss';
 
 const Footer: React.FC = () => {
   return (
-    <div>
+    <div className="footer">
       <span>
-        Hi there, I'm the footer of this amazing project
+        ©1998-2018 Goodwill Community Foundation, Inc. All rights reserved.
       </span>
     </div>
   );

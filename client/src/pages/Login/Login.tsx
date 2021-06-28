@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { authUser } from '../../api/users';
 import { useUserContext } from '../../context/UserContext';
 import './Login.scss';
@@ -18,6 +18,9 @@ type LoginResponseType = {
 
 const Login: React.FC = () => {
   const history = useHistory();
+  const location = useLocation<{ from?: string }>();
+  const from = location.state?.from || '/';
+
   const { updateUserData, isLoggedIn } = useUserContext();
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     reValidateMode: 'onChange',
@@ -45,9 +48,9 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push('/');
+      history.push(from);
     }
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn, history, from]);
 
   return (
     <div className="login-page">
@@ -99,6 +102,7 @@ const Login: React.FC = () => {
         <h2 className="login-page__extra-info__title">
           Please log in
         </h2>
+        <img src="./assets/gcfglobal-color.png" alt="" className="login-page__extra-info__img" />
         <span className="login-page__extra-info__description">
           Log in on our website in order to check all our courses and learn from the hand of experts by $0 on <strong>DEMAND</strong>.
         </span>

@@ -17,17 +17,17 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <div className="global-layout">
-      <div className="global-layout__header">
+      <header className="global-layout__header">
         <Header />
-      </div>
+      </header>
 
       <div className="global-layout__content">
         {children}
       </div>
 
-      <div className="global-layout__footer">
+      <footer className="global-layout__footer">
         <Footer />
-      </div>
+      </footer>
     </div>
   )
 }
