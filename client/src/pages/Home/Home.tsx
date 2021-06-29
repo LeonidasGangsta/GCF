@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CourseCard from '../../components/CourseCard/CourseCard';
 import { EnrolmentsResponse } from '../../types/types';
-import { getUserCoursesToEnrol, getUserEnrolments } from '../../api/users';
+import { getUserCoursesToEnrol, getUserEnrolments } from '../../api/usersApi';
 import { useUserContext } from '../../context/UserContext';
 import './Home.scss';
 

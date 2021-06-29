@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { EnrolmentsResponse } from '../../types/types';
 import './CourseCard.scss';
 
@@ -13,9 +14,15 @@ const CourseCard: React.FC<{ course: EnrolmentsResponse }> = ({ course }) => {
   return (
     <div className="course-card">
       <div className="course-card__title">
-        <h2 className={`course-card__title__name course-card__title__name--${status}`}>
-          {name}
-        </h2>
+          {status === 'passed' ? (
+            <Link to={`/course/${id}`} className="course-card__title__name course-card__title__name--passed">
+              {name}
+            </Link>
+          ) : (
+            <h2 className="course-card__title__name">
+              {name}
+            </h2>
+          )}
         {status && (
           <span className={`course-card__title__status course-card__title__status--${status}`}>
             {status}

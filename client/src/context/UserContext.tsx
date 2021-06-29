@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getUserData } from '../api/users';
+import { getUserData } from '../api/usersApi';
 
 export type UserDataType = {
   id: number,

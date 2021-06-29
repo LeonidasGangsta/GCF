@@ -13,6 +13,8 @@
     &__name {
       margin: 0;
       color: $secondary-color;
+      font-size: x-large;
+      font-weight: 600;
       
       &--passed {
         text-decoration: underline;

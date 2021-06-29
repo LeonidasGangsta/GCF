@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import './App.scss';
 import { UserContextProvider } from './context/UserContext';
 import PrivateRouteComponent from './components/PrivateRoute/PrivateRoute';
+import Courses from './pages/Courses/Courses';
 
 const App: React.FC = () => {
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/login" component={Login} exact />
             <Route path="/" component={() => PrivateRoute(Home)} exact />
+            <Route path="/course/:courseID" component={() => PrivateRoute(Courses)} exact />
             <Redirect path="*" to="/" />
           </Switch>
         </Layout>

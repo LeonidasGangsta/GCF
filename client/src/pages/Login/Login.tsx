@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
-import { authUser } from '../../api/users';
+import { authUser } from '../../api/usersApi';
 import { useUserContext } from '../../context/UserContext';
 import './Login.scss';
 

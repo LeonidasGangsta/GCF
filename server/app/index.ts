@@ -1,6 +1,6 @@
 import express from 'express';
+import path from 'path';
 import { SERVER_PORT } from './constants/constants';
-import { coursesDataJson, pagesDataJson } from '../data/data';
 import { getCoursesToEnrol, getUserCourses, getUserData } from './Utils/DataUtils';
 import { userMatch } from './Utils/AuthUtils';
 
@@ -43,7 +43,15 @@ app.get('/enrolments', (req, res) => {
 });
 
 app.get('/pages', (req, res) => {
-  res.json(pagesDataJson);
+  const { page, courseID } = req.query as { page: string, courseID: string };
+
+  if (!page || !courseID) {
+    return res.status(400).send('Please provide a page and a courseID')
+  }
+
+  const directoryPath = `/content/${courseID.toLowerCase()}/page_${page}.html`
+
+  res.sendFile(path.join(__dirname, directoryPath));
 });
 
 app.get('/courses', (req, res) => {
@@ -62,11 +70,11 @@ app.get('/courses', (req, res) => {
 app.post("/auth", (req, res)=>{
   const { username, password } = req.body.data;
   if(!username || !password){
-    res.status(400).send("Username or password not sent")
+    return res.status(400).send("Username or password not sent")
   }
   const user = userMatch(username,password);
   if(!user){
-    res.status(400).send("User not found")
+    return res.status(400).send("User not found")
   }
   const userInfo = getUserData(user.id)
   return res.json(userInfo)
