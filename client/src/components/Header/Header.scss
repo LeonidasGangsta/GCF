@@ -29,10 +29,24 @@
     &__button {
       margin: 0 1rem;
       text-decoration: none;
+      font-weight: 600;
       color: black;
 
       &:hover {
         color: $secondary-color;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 1199px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+
+    &__buttons {
+      &__button {
+        margin: 0.5rem 0;
       }
     }
   }

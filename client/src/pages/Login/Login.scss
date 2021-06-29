@@ -94,6 +94,12 @@
 
     &__extra-info {
       padding-bottom: 1rem;
+
+      &__img {
+        padding: 0;
+        margin: 0 auto 1rem;
+        width: 80%;
+      }
     }
   }
 }
