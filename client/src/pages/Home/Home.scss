@@ -37,3 +37,20 @@
     }
   }
 }
+
+@media all and (max-width: 1199px) {
+  .home {
+
+    &__courses {
+      width: 300px;
+
+      &__course-list {
+        flex-direction: column;
+
+        &__course {
+          width: auto;
+        }
+      }
+    }
+  }
+}

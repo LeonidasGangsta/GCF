@@ -29,9 +29,11 @@ const CourseCard: React.FC<{ course: EnrolmentsResponse }> = ({ course }) => {
           </span>
         )}
       </div>
-      <span className="course-card__id">
-        #{id}
-      </span>
+      {id !== 'NA' && (
+        <span className="course-card__id">
+          #{id}
+        </span>
+      )}
       <p className="course-card__description">
         {description}
       </p>

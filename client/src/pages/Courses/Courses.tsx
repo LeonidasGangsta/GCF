@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCoursePage } from 'src/api/courseApi';
+import './Courses.scss';
 
 const Courses: React.FC = () => {
   const { courseID } = useParams<{ courseID: string }>();
@@ -10,8 +11,7 @@ const Courses: React.FC = () => {
   useEffect(() => {
     getCoursePage(courseID).then((page: string) => {
       if (!courseRef?.current) return;
-      
-      console.log(page);
+
       const ref = courseRef.current;
       ref.innerHTML = page;
     })

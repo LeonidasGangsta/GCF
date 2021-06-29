@@ -14,6 +14,8 @@ app.use((req, res, next) => {
   next();
 })
 
+app.use('/media', express.static(path.join(__dirname, '/media')));
+
 
 app.get('/user', (req, res) => {
   const errorToThrow = () => res.status(400).send('A user ID is needed to get the user information.');

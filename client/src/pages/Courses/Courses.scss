@@ -1,0 +1,24 @@
+@import 'src/styles/variables';
+
+.course-content {
+  overflow: hidden;
+  color: $tertiary-color;
+
+  video {
+    z-index: 1;
+    width: 100%;
+  }
+  
+  img {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  h1 {
+    color: $primary-color;
+  }
+
+  h2, h3 {
+    color: $secondary-color;
+  }
+}
