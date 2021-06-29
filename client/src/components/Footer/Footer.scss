@@ -1,8 +1,10 @@
+@import 'src/styles/variables';
+
 .footer {
   width: 100%;
   text-align: center;
   min-height: 2rem;
   padding: 0.5rem 0;
-  background: #00A8E8;
+  background: $secondary-color;
   color: white;
 }

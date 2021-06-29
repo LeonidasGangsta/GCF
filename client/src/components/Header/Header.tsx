@@ -12,9 +12,6 @@ const Header: React.FC = () => {
         <Link to="/" className="header__buttons__button">
           Home
         </Link>
-        <Link to="/my-courses" className="header__buttons__button">
-          My courses
-        </Link>
       </div>
     </div>
   );

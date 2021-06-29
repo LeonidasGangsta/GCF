@@ -28,6 +28,20 @@ export const getUserEnrolments = async (userID: number) => {
   }
 };
 
+export const getUserCoursesToEnrol = async (userID: number) => {
+  try {
+    const { data } = await apiHelper().get('/courses', {
+      params: {
+        userID,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const authUser = async (username: string, password:String) => {
   try {
     const { data: userData } = await apiHelper().post('/auth', {

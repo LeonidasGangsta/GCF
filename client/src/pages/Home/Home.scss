@@ -1,1 +1,39 @@
-@use 'src/styles/variables' as v;
+@import 'src/styles/variables';
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__welcome-message {
+    font-size: xx-large;
+    font-weight: 600;
+    margin: 2rem 0;
+    color: $turquoise-color;
+  }
+
+  &__courses {
+    width: 1000px;
+    border: 1px solid lightgray;
+    background: white;
+    margin-bottom: 2rem;
+
+    &__title {
+      display: block;
+      margin: 1rem 1rem 0;
+      color: $primary-color;
+      font-weight: 600;
+      font-size: x-large;
+    }
+
+    &__course-list {
+      display: flex;
+
+      &__course {
+        margin: 1rem;
+        width: 470px;
+      }
+    }
+  }
+}

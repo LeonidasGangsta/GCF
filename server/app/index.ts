@@ -1,7 +1,7 @@
 import express from 'express';
 import { SERVER_PORT } from './constants/constants';
 import { coursesDataJson, pagesDataJson } from '../data/data';
-import { getUserCourses, getUserData } from './Utils/DataUtils';
+import { getCoursesToEnrol, getUserCourses, getUserData } from './Utils/DataUtils';
 import { userMatch } from './Utils/AuthUtils';
 
 const app = express();
@@ -40,18 +40,27 @@ app.get('/enrolments', (req, res) => {
   }
 
   return res.status(400).send('A user ID is needed to get the courses enrolled to the user.')
-})
+});
 
 app.get('/pages', (req, res) => {
   res.json(pagesDataJson);
-})
+});
 
 app.get('/courses', (req, res) => {
-  res.json(coursesDataJson);
-})
+  const { userID } = req.query;
+
+  if (userID) {
+    const userIDParsed = typeof userID === 'number' ? userID : Number(userID);
+    const coursesToEnrol = getCoursesToEnrol(userIDParsed);
+  
+    return res.json(coursesToEnrol);
+  }
+
+  return res.status(400).send('A user ID is needed to get the courses.')
+});
 
 app.post("/auth", (req, res)=>{
-  const {username, password} = req.body.data;
+  const { username, password } = req.body.data;
   if(!username || !password){
     res.status(400).send("Username or password not sent")
   }
@@ -61,8 +70,8 @@ app.post("/auth", (req, res)=>{
   }
   const userInfo = getUserData(user.id)
   return res.json(userInfo)
-})
+});
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server app for GCF running on port ${SERVER_PORT}!`)
-})
+});

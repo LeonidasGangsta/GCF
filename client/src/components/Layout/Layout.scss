@@ -10,14 +10,13 @@
   }
 
   &__content {
-    min-height: 75%;
+    height: fit-content;
     width: 90%;
-    margin: 6rem 0 0;
+    margin: 6rem 0;
   }
   
   &__footer {
     width: 100%;
     min-height: 2rem;
-    margin-top: 2rem;
   }
 }

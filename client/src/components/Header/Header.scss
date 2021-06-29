@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .header {
   position: fixed;
   top: 0;
@@ -27,6 +29,10 @@
       margin: 0 1rem;
       text-decoration: none;
       color: black;
+
+      &:hover {
+        color: $secondary-color;
+      }
     }
   }
 }

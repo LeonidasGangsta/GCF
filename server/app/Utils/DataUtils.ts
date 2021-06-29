@@ -30,3 +30,17 @@ export const getUserCourses = (userID: number) => {
 
   return mapCourseInfo;
 };
+
+export const getCoursesToEnrol = (userID: number) => {
+  const { courses } = coursesDataJson;
+  const userCourses = getUserCourses(userID);
+
+  const allCoursesEnrolledIds = userCourses.map((userCourse) => userCourse?.id) || [];
+  const coursesToEnrol = courses.filter(({ id }) => !allCoursesEnrolledIds.includes(id));
+  const coursesToEnrolMapped = coursesToEnrol.map((course) => ({
+    ...course,
+    status: '',
+  }))
+
+  return coursesToEnrolMapped;
+};
